@@ -1,0 +1,13 @@
+infoskjerm/
+├── README.md
+├── src/
+│   ├── index.html
+│   ├── js/
+│   │   ├── main.js
+│   │   ├── display.js
+│   │   ├── data.js
+│   │   └── utils.js
+│   └── css/
+│       └── styles.css
+├── package.json
+└── .gitignore

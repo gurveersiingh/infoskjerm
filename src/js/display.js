@@ -9,9 +9,9 @@ export function showDepartures(departures) {
     div.style.gap = '20px';
     div.style.fontFamily = 'monospace';
     div.innerHTML = `
-      <span style="width: 100px; display: inline-block;">Linje ${dep.serviceJourney.journeyPattern.line.publicCode}</span>
-      <span style="width: 200px; display: inline-block;">${dep.destinationDisplay.frontText}</span>
-      <span style="width: 100px; display: inline-block;">${time}</span>
+      <span style="width: 1fr; display: inline-block;">Linje ${dep.serviceJourney.journeyPattern.line.publicCode}</span>
+      <span style="width: 2fr; display: inline-block;">${dep.destinationDisplay.frontText}</span>
+      <span style="width: 1fr; display: inline-block;">${time}</span>
     `;
     container.appendChild(div);
   });

@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hypehouse infoskjerm</title>
-    <style>
-        body {
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div>
+    <div class="container">
         <h1>Lerkendal</h1>
-        <div id="departures"></div>
+        <div id="departures">
+            <div class="departure-header">Linje</div>
+            <div class="departure-header">Destinasjon</div>
+            <div class="departure-header">Tid</div>
+            <!-- Departure rows will be inserted here -->
+        </div>
     </div>
     <script type="module" src="js/main.js"></script>
 </body>

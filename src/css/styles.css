@@ -119,6 +119,27 @@ body {
             font-size: 0.8rem;
         }
         
+        /* Time status color coding */
+        .time-passed {
+            color: #dc3545 !important; /* Red - time has passed */
+            font-weight: 700;
+        }
+        
+        .time-urgent {
+            color: #ffc107 !important; /* Yellow - urgent (0-2 min) */
+            font-weight: 700;
+        }
+        
+        .time-good {
+            color: #28a745 !important; /* Green - good timing (3-5 min) */
+            font-weight: 700;
+        }
+        
+        .time-normal {
+            color: #333 !important; /* Normal - more than 5 min */
+            font-weight: 600;
+        }
+        
         .loading {
             text-align: center;
             color: #666;

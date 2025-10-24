@@ -56,10 +56,39 @@ export function showDepartures(departures) {
     `;
     container.appendChild(lineDestTimeDiv);
     
-    // Leave home time cell
+    // Leave home time cell with color coding
     const leaveHomeDiv = document.createElement('div');
     leaveHomeDiv.className = 'departure-cell leave-home-cell';
-    leaveHomeDiv.innerHTML = `<strong>${leaveHomeTimeStr}</strong><br><small>(${walkTime} min gange)</small>`;
+    
+    // Calculate time until departure
+    const now = new Date();
+    const timeUntilLeave = Math.floor((leaveHomeTime.getTime() - now.getTime()) / 60000); // minutes
+    
+    let timeClass = '';
+    let timeStatus = '';
+    
+    if (timeUntilLeave < 0) {
+        // Time has passed - red
+        timeClass = 'time-passed';
+        timeStatus = 'Passert';
+    } else if (timeUntilLeave <= 2) {
+        // Now or 1-2 min - yellow
+        timeClass = 'time-urgent';
+        timeStatus = timeUntilLeave === 0 ? 'Nå!' : `${timeUntilLeave} min`;
+    } else if (timeUntilLeave <= 5) {
+        // 3-5 min - green
+        timeClass = 'time-good';
+        timeStatus = `${timeUntilLeave} min`;
+    } else {
+        // More than 5 min - normal
+        timeClass = 'time-normal';
+        timeStatus = `${timeUntilLeave} min`;
+    }
+    
+    leaveHomeDiv.innerHTML = `
+      <strong class="${timeClass}">${leaveHomeTimeStr}</strong><br>
+      <small class="${timeClass}">${timeStatus} (${walkTime} min gange)</small>
+    `;
     container.appendChild(leaveHomeDiv);
   });
   

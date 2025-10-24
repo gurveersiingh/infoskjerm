@@ -1,43 +1,488 @@
 body {
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: top;
+            align-items: flex-start;
             background: #f5f5f5;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-y: auto;
         }
         .container {
-            background: #fff;
-            padding: 32px 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-            min-width: 500px;
+            background: transparent;
+            padding: 0;
+            min-width: 600px;
+            max-width: 1200px;
+            width: 100%;
         }
+        
+        /* Main content layout */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .side-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
         h1 {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
+            color: #333;
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         #departures {
             display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
-            gap: 12px;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
             align-items: center;
-            
+            margin-top: 20px;
         }
         .departure-row {
             display: contents;
         }
         .departure-header {
-            font-weight: bold;
-            background: #eaeaea;
-            padding: 8px 0;
+            font-weight: 700;
+            background: #333; /* Dark gray solid color */
+            color: white;
+            padding: 12px 16px;
             text-align: center;
-            border-radius: 6px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .departure-cell {
-            padding: 8px 0;
+            padding: 12px 16px;
             text-align: center;
+            border-radius: 8px;
+            background: #f8f8f8; /* Light gray background */
+            border: 1px solid #e0e0e0; /* Light gray border */
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        .departure-cell:hover {
+            background: #e8e8e8; /* Slightly darker gray on hover */
+            transform: translateY(-1px);
+            border-color: #333; /* Dark gray border on hover */
+        }
+        
+        /* Specific cell styling */
+        .line-destination-time-cell {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+        }
+        
+        .line-destination-content {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .line-destination-content strong {
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .time-content {
+            text-align: right;
+            margin-left: 20px;
+        }
+        
+        .time-content strong {
+            font-weight: 700;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .leave-home-cell {
+            text-align: center;
+        }
+        
+        .leave-home-cell strong {
+            font-weight: 700;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .leave-home-cell small {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 20px;
+        }
+        
+        .error {
+            text-align: center;
+            color: #dc3545;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+        
+        .last-updated {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                min-width: 95vw;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .side-content {
+                gap: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+            
+            .info-box {
+                padding: 20px 25px;
+                margin-bottom: 20px;
+            }
+            
+            .info-box h2 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .atb-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .atb-header h2 {
+                font-size: 1.5rem;
+                margin-bottom: 0;
+            }
+            
+            .atb-logo-image {
+                height: 40px;
+            }
+            
+            #departures {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .line-destination-time-cell {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 15px;
+            }
+            
+            .time-content {
+                margin-left: 0;
+                margin-top: 5px;
+                align-self: flex-end;
+            }
+            
+            .time-content strong,
+            .leave-home-cell strong {
+                font-size: 1rem;
+            }
+            
+            .departure-header {
+                font-size: 1rem;
+                padding: 10px 12px;
+            }
+            
+            .departure-cell {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .electricity-content {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .electricity-header {
+                font-size: 1rem;
+                padding: 10px 12px;
+            }
+            
+            .electricity-cell {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .clock-weather-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .current-time {
+                font-size: 2.5rem;
+            }
+            
+            .current-date {
+                font-size: 1rem;
+            }
+            
+            .weather-section {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .weather-icon {
+                font-size: 3rem;
+            }
+            
+            .temperature {
+                font-size: 2rem;
+            }
+            
+            .weather-info {
+                text-align: center;
+            }
+        }
+        
+        /* Animation for smooth updates */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .departure-cell {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        /* Info box styling */
+        .info-box {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .info-box:last-child {
+            margin-bottom: 0;
+        }
+        
+        .info-box h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        /* ATB Box specific styling */
+        .atb-box {
+            background: #4a4a4a; /* ATB gray background */
+            border-top: 4px solid #333; /* Dark gray accent */
+        }
+        
+        /* ATB Header with inline logo */
+        .atb-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .atb-header h2 {
+            color: white; /* White text on gray background */
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .atb-logo-image {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        /* Electricity Box specific styling */
+        .electricity-box h2 {
+            color: #28a745; /* Green for electricity */
+        }
+        
+        .electricity-box {
+            border-top: 4px solid #28a745; /* Green accent */
+        }
+        
+        /* Clock & Weather Box specific styling */
+        .clock-weather-box h2 {
+            color: #6f42c1; /* Purple for clock/weather */
+        }
+        
+        .clock-weather-box {
+            border-top: 4px solid #6f42c1; /* Purple accent */
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #333;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        /* Electricity prices styling */
+        .electricity-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .electricity-header {
+            font-weight: 700;
+            background: #28a745; /* Solid green color */
+            color: white;
+            padding: 12px 16px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .electricity-cell {
+            padding: 12px 16px;
+            text-align: center;
+            border-radius: 8px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .electricity-cell:hover {
+            background: #e9ecef;
+            transform: translateY(-1px);
+        }
+        
+        .electricity-cell.current-hour {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid #ffc107;
+            font-weight: 600;
+            color: #856404;
+        }
+        
+        .electricity-note {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #666;
+            font-size: 0.85rem;
+            font-style: italic;
+            margin-top: 15px;
+            padding: 10px;
+            background: #f1f3f4;
             border-radius: 6px;
-            background: #f9f9f9;
+        }
+        
+        /* Clock and Weather content styling */
+        .clock-weather-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .clock-section {
+            text-align: center;
+        }
+        
+        .current-time {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .current-date {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+        
+        .weather-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .weather-icon {
+            font-size: 4rem;
+            line-height: 1;
+        }
+        
+        .weather-info {
+            text-align: left;
+        }
+        
+        .temperature {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .weather-description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 10px;
+            text-transform: capitalize;
+        }
+        
+        .weather-details {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .weather-details span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }

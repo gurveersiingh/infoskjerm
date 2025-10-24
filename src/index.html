@@ -8,12 +8,32 @@
 </head>
 <body>
     <div class="container">
-        <h1>Lerkendal</h1>
-        <div id="departures">
-            <div class="departure-header">Linje</div>
-            <div class="departure-header">Destinasjon</div>
-            <div class="departure-header">Tid</div>
-            <!-- Departure rows will be inserted here -->
+        <h1>HypeHouse Infoskjerm</h1>
+        
+        <div class="main-content">
+            <div class="info-box atb-box">
+                <div class="atb-header">
+                    <img src="bilder/atb.png" alt="ATB Logo" class="atb-logo-image">
+                    <h2>ATB Avgangstider - Lerkendal</h2>
+                </div>
+                <div id="departures">
+                    <!-- Headers and departure rows will be inserted here -->
+                </div>
+            </div>
+            
+            <div class="side-content">
+                <div class="info-box electricity-box">
+                    <div id="electricity-prices">
+                        <!-- Electricity prices will be inserted here -->
+                    </div>
+                </div>
+                
+                <div class="info-box clock-weather-box">
+                    <div id="clock-weather">
+                        <!-- Clock and weather will be inserted here -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script type="module" src="js/main.js"></script>
